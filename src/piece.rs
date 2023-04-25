@@ -31,6 +31,7 @@ impl Piece {
 
 /* pieces draws */
 impl Piece {
+    // maybe make the draw function return pieces position for further manipulations. i.e. clear piece squares
     pub fn draw_l_shape(screen: &mut Stdout, piece: &mut Piece) -> Result<()> {
         piece.cells[0][0] = '\u{2588}';
         piece.cells[0][1] = '\u{2588}';
@@ -189,10 +190,15 @@ impl Piece {
         Ok(())
     }
 
-    pub fn clear_piece_squares(_screen: &mut Stdout, piece: &mut Piece) -> Result<()> {
-        for i in 0..piece.height {
-            for j in 0..piece.width {
-                piece.cells[i][j] = ' ';
+    pub fn clear_piece_squares(
+        _screen: &mut Stdout,
+        _piece: &mut Piece,
+        starting_x: usize,
+        starting_y: usize,
+    ) -> Result<()> {
+        for i in starting_y..(starting_y + 3) {
+            for j in starting_x..(starting_x + 3) {
+                execute!(_screen, MoveTo(i as u16, j as u16), Print(' '))?;
             }
         }
 

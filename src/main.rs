@@ -21,13 +21,12 @@ fn main() -> Result<()> {
     board::Board::draw_blank_board(&mut screen, &mut board)?;
 
     piece::Piece::draw_l_shape(&mut screen, &mut piece)?;
-    piece::Piece::draw_s_shape(&mut screen, &mut piece)?;
-    piece::Piece::draw_j_shape(&mut screen, &mut piece)?;
-    piece::Piece::draw_i_shape(&mut screen, &mut piece)?;
-    piece::Piece::draw_z_shape(&mut screen, &mut piece)?;
-    piece::Piece::draw_o_shape(&mut screen, &mut piece)?;
-    piece::Piece::draw_t_shape(&mut screen, &mut piece)?;
-    piece::Piece::clear_piece_squares(&mut screen, &mut piece)?;
+    // piece::Piece::draw_s_shape(&mut screen, &mut piece)?;
+    // piece::Piece::draw_j_shape(&mut screen, &mut piece)?;
+    // piece::Piece::draw_i_shape(&mut screen, &mut piece)?;
+    // piece::Piece::draw_z_shape(&mut screen, &mut piece)?;
+    // piece::Piece::draw_o_shape(&mut screen, &mut piece)?;
+    // piece::Piece::draw_t_shape(&mut screen, &mut piece)?;
 
     loop {
         match read()? {
@@ -71,7 +70,7 @@ fn main() -> Result<()> {
                 modifiers: _,
                 kind: _,
                 state: _,
-            }) => piece::Piece::rotate_piece(&mut screen),
+            }) => piece::Piece::clear_piece_squares(&mut screen, &mut piece, 0, 0)?,
             _ => (),
         }
     }
@@ -97,6 +96,5 @@ fn terminate_screen(terminal: &mut Stdout) -> Result<()> {
 }
 
 fn game_interrupt() {
-    /* this handles ctrl+c */
     std::process::exit(0);
 }
