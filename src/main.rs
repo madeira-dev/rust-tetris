@@ -16,11 +16,20 @@ fn main() -> Result<()> {
     piece = piece::Piece::initialize_piece();
     screen = stdout();
 
+    // testing variables
+    let mut starting_x = 0;
+    let mut starting_y = 0;
+
     // entering alternate screen and enabling raw mode
     setup_screen(&mut screen)?;
     board::Board::draw_blank_board(&mut screen, &mut board)?;
 
-    piece::Piece::draw_l_shape(&mut screen, &mut piece)?;
+    piece::Piece::draw_l_shape(
+        &mut screen,
+        &mut piece,
+        starting_x as usize,
+        starting_y as usize,
+    )?;
     // piece::Piece::draw_s_shape(&mut screen, &mut piece)?;
     // piece::Piece::draw_j_shape(&mut screen, &mut piece)?;
     // piece::Piece::draw_i_shape(&mut screen, &mut piece)?;
@@ -46,13 +55,13 @@ fn main() -> Result<()> {
                 modifiers: _,
                 kind: _,
                 state: _,
-            }) => piece::Piece::move_right(&mut screen),
+            }) => piece::Piece::move_right(&mut screen, &mut piece, &mut 0, 0)?,
             Event::Key(KeyEvent {
                 code: KeyCode::Left,
                 modifiers: _,
                 kind: _,
                 state: _,
-            }) => piece::Piece::move_left(&mut screen),
+            }) => piece::Piece::move_left(&mut screen, &mut piece, 0, 0)?,
             Event::Key(KeyEvent {
                 code: KeyCode::Char(' '),
                 modifiers: _,
